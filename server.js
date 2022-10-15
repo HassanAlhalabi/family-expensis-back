@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const {connectDB} = require('./db');
+const {connectDB, handleDisconnect} = require('./db');
 const cors = require('cors');
 
 const authorize = require('./middlewares/authorize');
@@ -43,7 +43,6 @@ app.use('/api/outlays',outlaysRoute );
 app.use('/api/reports',authorize,reportsRoute );
 
 const start = async () => {
-  await connectDB();
   app.listen(port,() => console.log(`Server is Running on Port ${port}`))
 }
-start()
+start();
